@@ -22,4 +22,7 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('posts/', include('mmorpg.urls')),
+    path('', include('protect.urls')),
+    path('sign/', include('sign.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

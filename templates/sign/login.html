@@ -1,0 +1,28 @@
+{% extends 'default.html' %}
+{% load i18n %}
+{% block content %}
+<h2>&nbsp;</h2>
+<h2> {% trans "Log in" %} </h2>
+<hr>
+<h2>&nbsp;</h2>
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+<h2>&nbsp;</h2>
+<button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+</form>
+<h2>&nbsp;</h2>
+<hr>
+<p style="text-align: left;"><button> <a href="/accounts/signup"> {% trans "Registration" %} </a></button>&nbsp;</p><br>
+<p style="text-align: left;"><button><a href='/accounts/google/login/?process=login'>Google</a></button>&nbsp;</p>
+
+{% endblock %}

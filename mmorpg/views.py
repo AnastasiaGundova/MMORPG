@@ -1,11 +1,27 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.utils import timezone
-import pytz
-from django.views.generic import ListView, DetailView, CreateView
-from mmorpg.filters import PostFilter
-from mmorpg.models import Post
-from django.core.cache import cache
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.views import View
+
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 from .forms import PostForm
+from .models import Post, Category
+from .filters import PostFilter
+
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+from django.core.cache import cache
+
+from django.utils import timezone
+
+from django.shortcuts import redirect
+
+import pytz
+
+from django.utils.translation import gettext as _
 
 
 class PostsList(ListView):
@@ -82,3 +98,15 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+@method_decorator(login_required(login_url='/login/'), name='dispatch')
+class ProtectedView(TemplateView):
+    template_name = 'prodected_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_time'] = timezone.localtime(timezone.now())
+        context['timezones'] = pytz.common_timezones
+        return context
+

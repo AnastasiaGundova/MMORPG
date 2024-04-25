@@ -1,0 +1,20 @@
+{% extends 'default.html' %}
+{% load i18n %}
+{% load tz %}
+{% block content %}
+<h2>&nbsp;</h2>
+<h2>{% trans "The authorized user's page" %} {{request.user.username}}</h2>
+<hr>
+<div> {% trans "It may contain personal information for each user" %} </div>
+<h2>&nbsp;</h2>
+
+{% if is_not_authors%}
+<p style="text-align: left;"><button> <a href="sign/upgrade/"> {% trans "I want Authors!" %}!</a> </button>&nbsp;</p>
+{% endif %}
+
+<form action="{% url 'logout'  %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value='{% trans "log out" %}'>
+    </form>
+
+{% endblock %}

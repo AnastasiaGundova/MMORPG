@@ -8,16 +8,6 @@ Posts
 
 {% block content %}
 
-{% get_current_timezone as TIME_ZONE %}
-<h1 style="text-align: center;">{{ TIME_ZONE }}</h1>
-
-<h1 style="text-align: center;">{% trans "All news" %}</h1>
-   <form action="" method="get">
-       {{ filterset.form.as_p }}
-       <input type="submit" value='{% trans "Search" %}' />
-       <hr />
-   </form>
-
 {% if posts %}
 
 <table width="100%" style="margin-top: 50px">

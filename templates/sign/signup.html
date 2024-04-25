@@ -1,0 +1,16 @@
+{% extends 'default.html' %}
+
+{% block content %}
+<h2>&nbsp;</h2>
+<h2 style="text-align: left;">Регистрация</h2>
+
+<h2>&nbsp;</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Продолжить">
+</form>
+<h2>&nbsp;</h2>
+<hr>
+<p style="text-align: left;"><button> <a href="/sign/login"> Войти в систему </a></button>&nbsp;</p>
+{% endblock content %}
