@@ -20,5 +20,4 @@ urlpatterns = [
     path('index/',
          LoginView.as_view(template_name='protect/index.html'),
          name='index'),
-
 ]

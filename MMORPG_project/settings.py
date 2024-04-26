@@ -48,6 +48,11 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -72,10 +77,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_apscheduler',
-    'allauth.socialaccount.providers.yandex',
 ]
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/sign/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/sign/login/'
 
