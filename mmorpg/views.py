@@ -1,27 +1,15 @@
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
-from django.views import View
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import PostForm
 from .models import Post, Category
 from .filters import PostFilter
 
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from django.core.cache import cache
-
-from django.utils import timezone
-
-from django.shortcuts import redirect
-
-import pytz
-
-from django.utils.translation import gettext as _
 
 
 class PostsList(ListView):
@@ -35,8 +23,6 @@ class PostsList(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
         context['is_not_author'] = not self.request.user.groups.filter(name='authors').exists()
-        context['current_time'] = timezone.localtime(timezone.now())
-        context['timezones'] = pytz.common_timezones
         return context
 
 
@@ -55,8 +41,6 @@ class PostDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_time'] = timezone.localtime(timezone.now())
-        context['timezones'] = pytz.common_timezones
         return context
 
 
@@ -82,16 +66,11 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'managing_posts/post_create.html'
-    success_url = '/home/news'
+    success_url = ''
     permission_required = ('news.add_post',)
 
     def form_valid(self, form):
-        post = form.save(commit=False)
-        if self.request.path == '/home/articles/create/':
-            post.type = 'A'
-        elif self.request.path == '/home/news/create/':
-            post.type = 'N'
-
+        post = form.save(commit=True)
         post.save()
         return super().form_valid(form)
 
@@ -100,13 +79,52 @@ class PostCreate(PermissionRequiredMixin, CreateView):
         return context
 
 
-@method_decorator(login_required(login_url='/login/'), name='dispatch')
-class ProtectedView(TemplateView):
-    template_name = 'prodected_page.html'
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'managing_posts/post_edit.html'
+    success_url = ''
+    permission_required = ('news.change_post',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_time'] = timezone.localtime(timezone.now())
-        context['timezones'] = pytz.common_timezones
         return context
 
+
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'managing_posts/post_delete.html'
+    success_url = 'http://127.0.0.1:8000/posts/'
+    permission_required = ('news.delete_post',)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class CategoryListView(PostsList):
+    model = Post
+    template_name = 'category_list.html'
+    context_object_name = 'category_news_list'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        queryset = Post.objects.filter(category=self.category).order_by('created_at')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_subscribed'] = self.request.user not in self.category.subscribers.all()
+        context['category'] = self.category
+        return context
+
+
+@login_required()
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.add(user)
+
+    message = 'Вы подписались на категорию'
+
+    return render(request, 'subscribe.html', {category: category, 'message': message})

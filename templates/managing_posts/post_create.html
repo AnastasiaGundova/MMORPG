@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'default.html' %}
+{% load i18n %}
 
-</body>
-</html>
+{% block content %}
+<!--<div class="text animate__animated animate__fadeInUp" align="center">-->
+<!--<h3>{% trans "Create new post" %}</h3>-->
+<!--    <form method="post" action="">-->
+<!--    {% csrf_token %}-->
+<!--    <div style="margin-bottom: 10px;">-->
+<!--        {{ form.label_tag }}{% trans "Heading" %} {{ form.title }}-->
+<!--    </div>-->
+<!--    <div style="margin-bottom: 10px;">-->
+<!--        {{ form.label_tag }}{% trans "Author" %} {{ form.author }}-->
+<!--    </div>-->
+<!--    <div style="margin-bottom: 10px;">-->
+<!--        {{ form.label_tag }}{% trans "Category" %} {{ form.category }}-->
+<!--    </div>-->
+<!--    <div> style="margin-bottom: 10px;">-->
+<!--        {{ form.label_tag }}{% trans "Image" %} {{ form.image }}-->
+<!--    </div>-->
+<!--    <div style="margin-bottom: 10px;">-->
+<!--        {{ form.label_tag }}{% trans "Content" %} {{ form.text }}-->
+<!--    </div>-->
+<!--    <div style="margin-bottom: 10px;">-->
+<!--        <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>-->
+<!--    </div>-->
+<!--    </form>-->
+<!--    <br>-->
+<!--</div>-->
+<form method="post">
+    {% csrf_token %}
+    {{ post_form.as_p }}
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form.as_p }}
+    {% endfor %}
+    <button type="submit">Submit</button>
+</form>
+{% endblock content %}

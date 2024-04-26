@@ -1,10 +1,22 @@
 from django.contrib import admin
-from .models import Category, Author, Post, Reply, Image, Video, File
+from .models import Category, Author, Post, Reply, Media, PostCategory
+
+
+class PostAdmin(admin.ModelAdmin):
+    model = Post
+    list_display = 'title'
+    list_filter = ('created_at', 'title')
+    search_fields = ('title', 'category')
+
+
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    search_fields = ['name']
+
 
 admin.site.register(Category)
 admin.site.register(Author)
 admin.site.register(Post)
-admin.site.register(Image)
-admin.site.register(Video)
-admin.site.register(File)
+admin.site.register(PostCategory)
+admin.site.register(Media)
 admin.site.register(Reply)

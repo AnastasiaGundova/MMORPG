@@ -3,17 +3,14 @@
 {% load custom_filters %}
 
 {% block content %}
+    {% if is_not_subscribed %}
+        <p class="text-center"><a href="{% url 'subscribe' category.id %}" class="btn btn-secondary btn-sm">Подписаться</a></p>
+    {% endif %}
+    {% if category_news_list %}
 
-<p>&nbsp;</p>
-    {% for model in models %}
-    <div class="model-class">
-        {{ model.name }}
-    </div>
-    {% endfor %}
-    {% if posts %}
-    <p>&nbsp;</p>
-    <h1 style="text-align: center;">{% trans "All posts" %}</h1>
+    <h1 style="text-align: center">{% trans "All posts for this category" %}</h1>
     <hr />
+
     <table width="100%" style="margin-top: 50px">
 
         <tr>
@@ -21,13 +18,14 @@
             <td><u>{% trans "Date of publication" %}</u></td>
             <td><u>{% trans "Content" %}</u></td>
             <td><u>{% trans "Category" %}</u></td>
+            <td><u>{% trans "Type of publication" %}</u></td>
 
         </tr>
-        {% for post in posts %}
+        {% for post in category_news_list %}
         <tr>
             <td>{{post.title}}</td>
             <td>{{post.created_at|date:' d M Y '}}</td>
-            <td>{{ post.text|truncatewords:20}}</td>
+            <td>{{ post.text|truncatewords:20 }}</td>
             <td>{% for category in post.category.all %}
                     <a href="{% url 'category_list' category.id %}">{{ category }}</a>
                 {% endfor %}
@@ -36,9 +34,10 @@
         </tr>
         {% endfor %}
 
+
     </table>
     {% else %}
-    <h3> {% trans "No publications found" %} </h3>
+    <h3> {% trans "No publications found" %}</h3>
     {% endif %}
 
     <p>&nbsp;</p>

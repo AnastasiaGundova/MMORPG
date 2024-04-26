@@ -29,12 +29,12 @@ SECRET_KEY = 'django-insecure-_zzb^um_0!#%c65c^k3-piq5+lp5uq&h&sgs7r%!n8^-g1p%9-
 DEBUG = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_FORMS = {'signup': 'mmorpg.forms.CommonSignupForm'}
 
 ALLOWED_HOSTS = []
-ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
@@ -43,6 +43,8 @@ EMAIL_HOST_PASSWORD = 'm1Xbxax5pcn4ttN1zytC'
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'splashafleck@mail.ru'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
@@ -77,6 +79,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_apscheduler',
+
+    'rest_framework',
 ]
 
 LOGIN_URL = '/sign/login/'
@@ -201,3 +205,14 @@ REST_FRAMEWORK = {
 }
 
 SITE_URL = 'http://127.0.0.1:8000'
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '449871950307-kk4ab5ooulnb3tscbpjdviiucl24o80c.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
