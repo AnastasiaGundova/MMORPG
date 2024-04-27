@@ -14,7 +14,7 @@
     <tr>
         <td>{{post.title}}</td>
         <td>{{post.created_at|date:' d M Y '}}</td>
-        <td>{{post.text}}</td>
+        <td>{{post.text|safe}}</td>
         {% for cat in post.category.all %}
         <td>{{cat.name}}</td>
         {% endfor %}

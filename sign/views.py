@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
 
-from mmorpg.forms import CommonSignupForm
 from .models import BaseRegisterForm
 from mmorpg.models import Author
 
@@ -18,10 +17,13 @@ class ConfirmUser(UpdateView):
 
     def post(self,  request, *args, **kwargs):
         if 'code' in request.POST:
-            user = Author.objects.filter(code=request.POST['code'])
+            code = request.POST['code']
+            user = Author.objects.filter(code=code)
             if user.exists():
-                user.update(is_active=True)
-                user.update(code=None)
+                user = user.first()  # Получаем первого пользователя с указанным кодом
+                user.is_active = True
+                user.code = None  # Очищаем код после активации
+                user.save()  # Сохраняем изменения в экземпляре пользователя
             else:
-                return render(self.request, 'sign/registration_code.html')
+                return render(request, 'sign/invalid_code.html')
             return redirect('/')

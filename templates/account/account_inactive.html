@@ -1,14 +1,15 @@
+{% extends 'default.html' %}
 {% load i18n %}
-{% block head_title %}
-    {% trans "активация аккаунта" %}
-{% endblock head_title %}
+
 {% block content %}
+<h2>&nbsp;</h2>
     <h1>Введите код активации</h1>
+<h2>&nbsp;</h2>
     <form action="{% url 'confirm_user'%}" method="post">
         {% csrf_token %}
         <label>
-            <input class="text" type="text" name="code" placeholder="Введите код защиты">
+            <input class="text" type="text" name="code" placeholder="Введите код">
         </label>
-        <input type="submit" value="Подтвердить">
+        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
     </form>
 {% endblock content %}

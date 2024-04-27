@@ -1,7 +1,11 @@
+from ckeditor.fields import RichTextFormField, RichTextField
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from .models import Post, Media
+
+from .models import Post
 
 from allauth.account.forms import SignupForm
 from django.core.mail import send_mail
@@ -9,21 +13,12 @@ from random import sample
 from string import hexdigits
 from django.conf import settings
 
+
 from django.contrib.auth.models import Group
-
-
-class MediaForm(forms.ModelForm):
-    class Meta:
-        model = Media
-        fields = [
-            'data',
-            'title',
-            'type',
-        ]
+from django.contrib.auth.models import User
 
 
 class PostForm(forms.ModelForm):
-    text = forms.CharField(min_length=20)
 
     class Meta:
         model = Post
@@ -55,7 +50,7 @@ class CommonSignupForm(SignupForm):
         user.code = code
         user.save()
         send_mail(
-            subject='Код активации',
+            subject='Код',
             message=f'Ваш код активации {code}',
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user.email]
