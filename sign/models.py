@@ -18,21 +18,3 @@ class BaseRegisterForm(UserCreationForm):
                   "email",
                   "password1",
                   "password2", )
-
-
-# class CommonSignupForm(SignupForm):
-#
-#     username = forms.User(label="Имя Пользователя")
-#     email = forms.EmailField(label="Email")
-#
-#     class Meta:
-#         model = User
-#
-#         fields = ("username",
-#                   "email",)
-#
-#     def save(self, request):
-#         user = super(CommonSignupForm, self).save(request)
-#         common_group = Group.objects.get(name='common')
-#         common_group.user_set.add(user)
-#         return user

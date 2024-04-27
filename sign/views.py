@@ -20,10 +20,10 @@ class ConfirmUser(UpdateView):
             code = request.POST['code']
             user = Author.objects.filter(code=code)
             if user.exists():
-                user = user.first()  # Получаем первого пользователя с указанным кодом
+                user = user.first()
                 user.is_active = True
-                user.code = None  # Очищаем код после активации
-                user.save()  # Сохраняем изменения в экземпляре пользователя
+                user.code = None
+                user.save()
             else:
                 return render(request, 'sign/invalid_code.html')
             return redirect('/')
