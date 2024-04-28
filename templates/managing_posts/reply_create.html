@@ -2,20 +2,19 @@
 {% load i18n %}
 
 {% block title %}
-Create Post
+Create Reply
 {% endblock title %}
 
 
 {% block content %}
     <div style="text-align: center;">
-        <h1>Добавление нового объявления</h1>
+        <h1>Добавление нового отклика</h1>
         <hr>
         <form action="" method="POST">
             {% csrf_token %}
-            {{ form.media }}
             {{ form.as_p }}
             <div style="text-align: center;">
-                <input type="submit" class="btn btn-success" value="Добавить объявление">
+                <input type="submit" class="btn btn-success" value="Добавить отклик">
             </div>
         </form>
     </div>

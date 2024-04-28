@@ -1,16 +1,34 @@
 {% extends 'default.html' %}
-{% load i18n %}
-{% load tz %}
-{% block content %}
-<h2>&nbsp;</h2>
-<h2>{% trans "The authorized user's page" %} {{request.user.username}}</h2>
-<hr>
-<div> {% trans "It may contain personal information for each user" %} </div>
-<h2>&nbsp;</h2>
 
+{% load i18n %}
+
+{% block content %}
+<h5>&nbsp;</h5>
+<h2>{% trans "The authorized user's page" %} {{request.user.username}}</h2>
+<h6>&nbsp;</h6>
+<hr>
+<h6>&nbsp;</h6>
+<form action="" method="get">
+    {{ filterset.form }}
+    <br>
+    <input type="submit" value='{% trans "Search" %}'>
+    <button type="submit" class="button"> <a href="/"> {% trans "Reset the filter" %} </a></button>
+</form>
+
+{% if not post_reply %}
+    <h1>&nbsp;</h1>
+{% else %}
+    <h5>&nbsp;</h5>
+    <h5>{% trans "Отклики объявления:" %}</h5>
+    {% for reply in post_reply %}
+    <td><a href="{% url 'reply_detail' reply.id %}">{{ reply.text }}</a></td>
+    {% endfor %}
+    <h6>&nbsp;</h6>
+{% endif %}
+<hr>
 <form action="{% url 'logout'  %}" method="post">
     {% csrf_token %}
     <input type="submit" value='{% trans "log out" %}'>
-    </form>
+</form>
 
 {% endblock %}

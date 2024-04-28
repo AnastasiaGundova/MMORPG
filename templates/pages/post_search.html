@@ -7,9 +7,12 @@ Posts
 {% endblock title %}
 
 {% block content %}
-
+<form action="" method="get">
+   {{ filterset.form.as_p }}
+   <input type="submit" value='{% trans "Search" %}' />
+   <hr />
+</form>
 {% if posts %}
-
 <table width="100%" style="margin-top: 50px">
 
     <tr>
@@ -20,12 +23,13 @@ Posts
     </tr>
     {% for post in posts %}
     <tr>
-        <td>{{post.title}}</td>
+        <td><a href="{% url 'post_detail' post.id %}">{{post.title}}</a></td>
         <td>{{post.created_at|date:' d M Y '}}</td>
         <td>{{ post.text|truncatewords:20}}</td>
-        {% for cat in post.category.all %}
-        <td>{{cat.name}}</td>
-        {% endfor %}
+        <td>{% for category in post.category.all %}
+                <a href="{% url 'category_list' category.id %}">{{ category }}</a>
+            {% endfor %}
+        </td>
     </tr>
     {% endfor %}
 </table>

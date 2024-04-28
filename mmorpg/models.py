@@ -43,7 +43,8 @@ class PostCategory(models.Model):
 
 
 class Reply(models.Model):
-    reply_text = models.TextField()
+    text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_accepted = models.BooleanField(default=False)

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
 
@@ -12,17 +13,17 @@ class BaseRegisterView(CreateView):
 
 
 class ConfirmUser(UpdateView):
-    model = Author
+    model = User
     context_object_name = 'confirm_user'
 
     def post(self,  request, *args, **kwargs):
         if 'code' in request.POST:
             code = request.POST['code']
-            user = Author.objects.filter(code=code)
-            if user.exists():
-                user = user.first()
+            author = Author.objects.filter(code=code)
+            if author.exists():
+                user = author.first().user
                 user.is_active = True
-                user.code = None
+                author.delete()
                 user.save()
             else:
                 return render(request, 'sign/invalid_code.html')

@@ -1,0 +1,40 @@
+{% extends 'default.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<h5>&nbsp;</h5>
+
+<h5>{% trans "Отклик" %}</h5>
+<table width="100%" style="margin-top: 50px">
+  <tbody>
+    <tr>
+      <th>{% trans "Автор отклика" %}</th>
+      <td>{{ reply_detail.user }}</td>
+    </tr>
+    <tr>
+      <th>{% trans "Текст" %}</th>
+      <td>{{ reply_detail.text }}</td>
+    </tr>
+  </tbody>
+</table>
+<h6>&nbsp;</h6>
+<div style="text-align: left;">
+    <button style="background-color: #007bff; /* Blue */
+                    border: none;
+                    color: white;
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 8px; /* Softened edges */">
+        <a href="{% url 'reply_delete/' reply.id %}" style="color: white; text-decoration: none;">
+            {% trans "Delete" %}
+        </a>
+    </button>
+</div>
+
+{% endblock %}

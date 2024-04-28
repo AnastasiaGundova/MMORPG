@@ -22,3 +22,11 @@ class PostFilter(FilterSet):
         lookup_expr='date__gte',
         label='Date'
     )
+
+
+class ReplyFilter(FilterSet):
+    title = CharFilter(
+        field_name='text',
+        label='Heading',
+        lookup_expr='iregex'
+    )

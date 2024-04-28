@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 10:14+0300\n"
+"POT-Creation-Date: 2024-04-28 14:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,113 +16,157 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\templates\account\account_inactive.html:13
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: .\templates\category_list.html:11
+msgid "All posts for this category"
+msgstr "Все посты этой категории"
+
+#: .\templates\category_list.html:17 .\templates\pages\post_detail.html:9
+#: .\templates\pages\post_search.html:19 .\templates\pages\posts_list.html:15
+msgid "Heading"
+msgstr "Заголовок"
+
+#: .\templates\category_list.html:18 .\templates\pages\post_detail.html:10
+#: .\templates\pages\post_search.html:20 .\templates\pages\posts_list.html:16
+msgid "Date of publication"
+msgstr "Дата публикации"
+
+#: .\templates\category_list.html:19 .\templates\pages\post_detail.html:11
+#: .\templates\pages\post_search.html:21 .\templates\pages\posts_list.html:17
+msgid "Content"
+msgstr "Содержание"
+
+#: .\templates\category_list.html:20 .\templates\pages\post_detail.html:12
+#: .\templates\pages\post_search.html:22 .\templates\pages\posts_list.html:18
+msgid "Category"
+msgstr "Категория"
+
+#: .\templates\category_list.html:21
+msgid "Type of publication"
+msgstr "Тип публикации"
+
+#: .\templates\category_list.html:40 .\templates\pages\post_detail.html:76
+#: .\templates\pages\post_search.html:37 .\templates\pages\posts_list.html:35
+msgid "No publications found"
+msgstr "Публикации не найдены"
+
 #: .\templates\default.html:24
 msgid "MMORPG Portal"
-msgstr ""
+msgstr "MMORPG Портал"
+
+#: .\templates\default.html:39
+msgid "set"
+msgstr "подтвердить"
 
 #: .\templates\default.html:46
 msgid "Home"
-msgstr ""
+msgstr "Главная страница"
 
-#: .\templates\default.html:47
+#: .\templates\default.html:47 .\templates\pages\post_search.html:12
+#: .\templates\protect\index.html:14
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 #: .\templates\default.html:50
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: .\templates\default.html:52
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: .\templates\default.html:53
 msgid "Create Posts"
-msgstr ""
+msgstr "Создать Пост"
 
 #: .\templates\default.html:54
 msgid "Logout"
-msgstr ""
+msgstr "Выйти"
 
 #: .\templates\logout_confirm.html:5
 msgid "Do you really want to log out"
-msgstr ""
+msgstr "Вы действительно хотите выйти?"
 
 #: .\templates\logout_confirm.html:8
 msgid "Confirm"
-msgstr ""
+msgstr "Подтвердить"
 
-#: .\templates\managing_posts\post_create.html:5
-msgid "Create new post"
-msgstr ""
+#: .\templates\managing_posts\post_delete.html:5
+msgid "Delete a news item"
+msgstr "Удалить пост"
 
-#: .\templates\managing_posts\post_create.html:8
-#: .\templates\pages\post_detail.html:9 .\templates\pages\post_search.html:16
-#: .\templates\pages\posts_list.html:19
-msgid "Heading"
-msgstr ""
+#: .\templates\managing_posts\post_delete.html:9
+#: .\templates\managing_posts\reply_delete.html:9
+msgid "Deleting"
+msgstr "Удаление"
 
-#: .\templates\managing_posts\post_create.html:9
-msgid "Author"
-msgstr ""
+#: .\templates\managing_posts\post_edit.html:5
+msgid "Edit the news"
+msgstr "Редактировать пост"
 
-#: .\templates\managing_posts\post_create.html:10
-#: .\templates\pages\post_detail.html:12 .\templates\pages\post_search.html:19
-#: .\templates\pages\posts_list.html:22
-msgid "Category"
-msgstr ""
+#: .\templates\managing_posts\reply_delete.html:5
+msgid "Delete reply"
+msgstr "Удалить отклик"
 
-#: .\templates\managing_posts\post_create.html:11
-#: .\templates\pages\post_detail.html:11 .\templates\pages\post_search.html:18
-#: .\templates\pages\posts_list.html:21
-msgid "Content"
-msgstr ""
+#: .\templates\pages\post_detail.html:38 .\templates\pages\reply_detail.html:35
+msgid "Delete"
+msgstr "Удалить"
 
-#: .\templates\managing_posts\post_create.html:13
-msgid "Save"
-msgstr ""
+#: .\templates\pages\post_detail.html:54
+msgid "Edit"
+msgstr "Редактировать"
 
-#: .\templates\pages\post_detail.html:10 .\templates\pages\post_search.html:17
-#: .\templates\pages\posts_list.html:20
-msgid "Date of publication"
-msgstr ""
+#: .\templates\pages\post_detail.html:70
+msgid "Reply"
+msgstr "Отклик"
 
-#: .\templates\pages\post_detail.html:24 .\templates\pages\post_search.html:33
-#: .\templates\pages\posts_list.html:40
-msgid "No publications found"
-msgstr ""
-
-#: .\templates\pages\posts_list.html:14
+#: .\templates\pages\posts_list.html:10
 msgid "All posts"
-msgstr ""
+msgstr "Все посты"
 
-#: .\templates\protect\index.html:6
+#: .\templates\pages\reply_detail.html:8
+msgid "Отклик"
+msgstr "Отклик"
+
+#: .\templates\pages\reply_detail.html:12
+msgid "Автор отклика"
+msgstr "Автор отклика"
+
+#: .\templates\pages\reply_detail.html:16
+msgid "Текст"
+msgstr "Текст"
+
+#: .\templates\protect\index.html:7
 msgid "The authorized user's page"
-msgstr ""
+msgstr "Страница авторизированного пользователя"
 
-#: .\templates\protect\index.html:8
-msgid "It may contain personal information for each user"
-msgstr ""
+#: .\templates\protect\index.html:15
+msgid "Reset the filter"
+msgstr "Перезапустить фильтр"
 
-#: .\templates\protect\index.html:12
-msgid "I want Authors!"
-msgstr ""
+#: .\templates\protect\index.html:22
+msgid "Отклики объявления:"
+msgstr "Отклики объявления:"
 
-#: .\templates\protect\index.html:17
+#: .\templates\protect\index.html:31
 msgid "log out"
-msgstr ""
+msgstr "Выйти"
 
-#: .\templates\sign\login.html:5 .\templates\sign\login.html:21
+#: .\templates\sign\login.html:12 .\templates\sign\login.html:28
 msgid "Log in"
-msgstr ""
+msgstr "Войти"
 
-#: .\templates\sign\login.html:25
+#: .\templates\sign\login.html:32
 msgid "Registration"
-msgstr ""
+msgstr "Регистрация"
 
 #: .\templates\sign\logout.html:5
 msgid "You are logged out of the system"
-msgstr ""
+msgstr "Вы вышли из системы"

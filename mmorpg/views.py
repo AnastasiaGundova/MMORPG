@@ -2,11 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import PostForm
-from .models import Post, Category
+from MMORPG_project.settings import SITE_URL
+from .forms import PostForm, ReplyForm
+from .models import Post, Category, Reply
 from .filters import PostFilter
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.core.cache import cache
 
@@ -61,12 +62,11 @@ class PostSearch(ListView):
         return context
 
 
-class PostCreate(PermissionRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     form_class = PostForm
     model = Post
     template_name = 'managing_posts/post_create.html'
     success_url = ''
-    permission_required = ('news.add_post',)
 
     def form_valid(self, form):
         post = form.save(commit=True)
@@ -78,23 +78,22 @@ class PostCreate(PermissionRequiredMixin, CreateView):
         return context
 
 
-class PostUpdate(PermissionRequiredMixin, UpdateView):
+class PostUpdate(LoginRequiredMixin, UpdateView):
     form_class = PostForm
     model = Post
     template_name = 'managing_posts/post_edit.html'
     success_url = ''
-    permission_required = ('news.change_post',)
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
-class PostDelete(PermissionRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = 'managing_posts/post_delete.html'
     success_url = 'http://127.0.0.1:8000/posts/'
-    permission_required = ('news.delete_post',)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -115,6 +114,44 @@ class CategoryListView(PostsList):
         context = super().get_context_data(**kwargs)
         context['is_not_subscribed'] = self.request.user not in self.category.subscribers.all()
         context['category'] = self.category
+        return context
+
+
+class ReplyDetailView(DetailView):
+    model = Reply
+    template_name = 'pages/reply_detail.html'
+    context_object_name = 'reply_detail'
+
+
+class ReplyDelete(LoginRequiredMixin, DeleteView):
+    model = Reply
+    template_name = 'managing_posts/reply_delete.html'
+    success_url = 'http://127.0.0.1:8000/posts/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class ReplyCreate(LoginRequiredMixin, CreateView):
+    form_class = ReplyForm
+    model = Reply
+    template_name = 'managing_posts/reply_create.html'
+    context_object_name = 'reply_create'
+    success_url = SITE_URL + '/posts/'
+
+    def form_valid(self, form):
+        post_id = self.kwargs.get('pk')
+        post = get_object_or_404(Post, pk=post_id)
+
+        reply = form.save(commit=False)
+        reply.post = post
+        reply.user = self.request.user
+        reply.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
 
 
