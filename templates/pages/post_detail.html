@@ -22,39 +22,43 @@
 </table>
 <p>&nbsp;</p>
 
+{% if request.user.author == post.author %}
+    <div style="text-align: left;">
+        <button style="background-color: #007bff; /* Blue */
+                        border: none;
+                        color: white;
+                        padding: 10px 20px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;
+                        border-radius: 8px; /* Softened edges */">
+            <a href="{% url 'post_delete' post.id %}" style="color: white; text-decoration: none;">
+                {% trans "Delete" %}
+            </a>
+        </button>
+
+        <button style="background-color: #007bff; /* Blue */
+                        border: none;
+                        color: white;
+                        padding: 10px 20px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        cursor: pointer;
+                        border-radius: 8px; /* Softened edges */">
+            <a href="{% url 'post_edit' post.id %}" style="color: white; text-decoration: none;">
+                {% trans "Edit" %}
+            </a>
+        </button>
+    </div>
+{% endif %}
+<p>&nbsp;</p>
 <div style="text-align: left;">
-    <button style="background-color: #007bff; /* Blue */
-                    border: none;
-                    color: white;
-                    padding: 10px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 8px; /* Softened edges */">
-        <a href="{% url 'post_delete' post.id %}" style="color: white; text-decoration: none;">
-            {% trans "Delete" %}
-        </a>
-    </button>
-
-    <button style="background-color: #007bff; /* Blue */
-                    border: none;
-                    color: white;
-                    padding: 10px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 8px; /* Softened edges */">
-        <a href="{% url 'post_edit' post.id %}" style="color: white; text-decoration: none;">
-            {% trans "Edit" %}
-        </a>
-    </button>
-
     <button style="background-color: #007bff; /* Blue */
                     border: none;
                     color: white;
@@ -72,6 +76,18 @@
     </button>
 </div>
 
+<p>&nbsp;</p>
+<h4 style="text-align: center;">{% trans "All replies" %}</h4>
+    {% if reply.is_accepted %}
+        <table width="100%" style="margin-top: 50px">
+          <tbody>
+            <tr>
+              <th>{% trans "Text" %}</th>
+              <td>{{ reply.text }}</td>
+            </tr>
+          </tbody>
+        </table>
+    {% endif %}
 {% else %}
 <h3> {% trans "No publications found" %}</h3>
 {% endif %}

@@ -1,15 +1,18 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from MMORPG_project.settings import SITE_URL
 from .forms import PostForm, ReplyForm
 from .models import Post, Category, Reply
-from .filters import PostFilter
+from .filters import PostFilter, ReplyFilter
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.core.cache import cache
+from django.shortcuts import redirect
 
 
 class PostsList(ListView):
@@ -41,6 +44,7 @@ class PostDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['filterset'] = ReplyFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
 
@@ -83,7 +87,6 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'managing_posts/post_edit.html'
     success_url = ''
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -131,6 +134,29 @@ class ReplyDelete(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class ReplyEdit(LoginRequiredMixin, UpdateView):
+    form_class = ReplyForm
+    model_search = Reply
+    model = Reply
+    template_name = 'managing_posts/reply_edit.html'
+    success_url = 'http://127.0.0.1:8000/posts/'
+
+    def get_object(self, **kwargs):
+        my_id = self.kwargs.get('pk')
+        return Reply.objects.get(pk=my_id)
+
+
+@login_required
+def reply_accept(request, pk):
+    reply = get_object_or_404(Reply, id=pk)
+
+    if not reply.is_accepted:
+        reply.is_accepted = True
+        reply.save()
+
+    return redirect('http://127.0.0.1:8000/posts/')
 
 
 class ReplyCreate(LoginRequiredMixin, CreateView):
