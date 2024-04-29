@@ -7,6 +7,6 @@
 <form action="" method="post">
   {% csrf_token %}
   <p>{% trans "Deleting" %} "{{object.text}}"?</p>
-  <input type="submit" value="Delete" />
+  <input type="submit" value='{% trans "Delete" %}' />
 </form>
 {% endblock content %}

@@ -6,7 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from MMORPG_project.settings import SITE_URL
 from .forms import PostForm, ReplyForm
-from .models import Post, Category, Reply
+from .models import Post, Category, Reply, Author
 from .filters import PostFilter, ReplyFilter
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -33,19 +33,6 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'pages/post_detail.html'
     context_object_name = 'post'
-
-    def get_object(self, *args, **kwargs):
-        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
-
-        if not obj:
-            obj = super().get_object(queryset=self.queryset)
-            cache.set(f'post-{self.kwargs["pk"]}', obj)
-        return obj
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filterset'] = ReplyFilter(self.request.GET, queryset=self.get_queryset())
-        return context
 
 
 class PostSearch(ListView):
@@ -136,18 +123,6 @@ class ReplyDelete(LoginRequiredMixin, DeleteView):
         return context
 
 
-class ReplyEdit(LoginRequiredMixin, UpdateView):
-    form_class = ReplyForm
-    model_search = Reply
-    model = Reply
-    template_name = 'managing_posts/reply_edit.html'
-    success_url = 'http://127.0.0.1:8000/posts/'
-
-    def get_object(self, **kwargs):
-        my_id = self.kwargs.get('pk')
-        return Reply.objects.get(pk=my_id)
-
-
 @login_required
 def reply_accept(request, pk):
     reply = get_object_or_404(Reply, id=pk)
@@ -190,3 +165,16 @@ def subscribe(request, pk):
     message = 'Вы подписались на категорию'
 
     return render(request, 'subscribe.html', {category: category, 'message': message})
+
+
+@login_required()
+def create_author(request):
+    user = request.user
+    author, created = Author.objects.get_or_create(user=user)
+
+    if created:
+        message = 'Автор успешно создан.'
+    else:
+        message = 'Автор уже существует.'
+
+    return render(request, 'author.html', {'message': message})

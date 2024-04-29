@@ -3,8 +3,10 @@
 {% load custom_filters %}
 
 {% block content %}
-
-<p>&nbsp;</p>
+<p4>&nbsp;</p4>
+{% if is_not_author %}
+    <p class="text-center"><a href="{% url 'create_author'%}" class="btn btn-secondary btn-sm">{% trans "Become an author" %}</a></p>
+{% endif %}
     {% if posts %}
     <p>&nbsp;</p>
     <h1 style="text-align: center;">{% trans "All posts" %}</h1>

@@ -8,6 +8,9 @@ class Author(models.Model):
     code = models.CharField(max_length=15, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.user.username
+
 
 class Category(models.Model):
     subscribers = models.ManyToManyField(User, blank=True, null=True, related_name='categories')

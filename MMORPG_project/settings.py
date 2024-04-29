@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
 
-    'mmorpg',
+    'mmorpg.apps.MmorpgConfig',
     'django_filters',
 
     'sign',
@@ -141,14 +141,21 @@ WSGI_APPLICATION = 'MMORPG_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'MMORPG',
+#         'USER': config("FSTR_DB_LOGIN"),
+#         'PASSWORD': config("FSTR_DB_PASS"),
+#         'HOST': config("FSTR_DB_HOST"),
+#         'PORT': config("FSTR_DB_PORT"),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'MMORPG',
-        'USER': config("FSTR_DB_LOGIN"),
-        'PASSWORD': config("FSTR_DB_PASS"),
-        'HOST': config("FSTR_DB_HOST"),
-        'PORT': config("FSTR_DB_PORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -192,8 +199,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CKEDITOR_CONFIGS = {
     'awesome_ckeditor': {

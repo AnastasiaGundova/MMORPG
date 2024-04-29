@@ -8,13 +8,13 @@ Create Reply
 
 {% block content %}
     <div style="text-align: center;">
-        <h1>Добавление нового отклика</h1>
+        <h1>{% trans "Adding a new reply" %}</h1>
         <hr>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
             <div style="text-align: center;">
-                <input type="submit" class="btn btn-success" value="Добавить отклик">
+                <input type="submit" class="btn btn-success" value='{% trans "Submit" %}'>
             </div>
         </form>
     </div>

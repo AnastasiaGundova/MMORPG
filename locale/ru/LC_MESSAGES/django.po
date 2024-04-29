@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:19+0300\n"
+"POT-Creation-Date: 2024-04-29 11:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,8 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: .\templates\account\account_inactive.html:13
+#: .\templates\managing_posts\post_create.html:17
+#: .\templates\managing_posts\reply_create.html:17
 msgid "Submit"
 msgstr "Подтвердить"
 
@@ -28,32 +30,30 @@ msgstr "Подтвердить"
 msgid "All posts for this category"
 msgstr "Все посты этой категории"
 
-#: .\templates\category_list.html:17 .\templates\pages\post_detail.html:9
-#: .\templates\pages\post_search.html:19 .\templates\pages\posts_list.html:15
+#: .\templates\category_list.html:17 .\templates\pages\post_detail.html:13
+#: .\templates\pages\post_search.html:20 .\templates\pages\posts_list.html:17
 msgid "Heading"
 msgstr "Заголовок"
 
-#: .\templates\category_list.html:18 .\templates\pages\post_detail.html:10
-#: .\templates\pages\post_search.html:20 .\templates\pages\posts_list.html:16
+#: .\templates\category_list.html:18 .\templates\pages\post_detail.html:14
+#: .\templates\pages\post_detail.html:92 .\templates\pages\post_search.html:21
+#: .\templates\pages\posts_list.html:18
 msgid "Date of publication"
 msgstr "Дата публикации"
 
-#: .\templates\category_list.html:19 .\templates\pages\post_detail.html:11
-#: .\templates\pages\post_search.html:21 .\templates\pages\posts_list.html:17
+#: .\templates\category_list.html:19 .\templates\pages\post_detail.html:15
+#: .\templates\pages\post_detail.html:93 .\templates\pages\post_search.html:22
+#: .\templates\pages\posts_list.html:19
 msgid "Content"
 msgstr "Содержание"
 
-#: .\templates\category_list.html:20 .\templates\pages\post_detail.html:12
-#: .\templates\pages\post_search.html:22 .\templates\pages\posts_list.html:18
+#: .\templates\category_list.html:20 .\templates\pages\post_detail.html:16
+#: .\templates\pages\post_search.html:23 .\templates\pages\posts_list.html:20
 msgid "Category"
 msgstr "Категория"
 
-#: .\templates\category_list.html:21
-msgid "Type of publication"
-msgstr "Тип публикации"
-
-#: .\templates\category_list.html:40 .\templates\pages\post_detail.html:76
-#: .\templates\pages\post_search.html:37 .\templates\pages\posts_list.html:35
+#: .\templates\category_list.html:38 .\templates\pages\post_detail.html:106
+#: .\templates\pages\post_search.html:38 .\templates\pages\posts_list.html:37
 msgid "No publications found"
 msgstr "Публикации не найдены"
 
@@ -69,7 +69,7 @@ msgstr "подтвердить"
 msgid "Home"
 msgstr "Главная страница"
 
-#: .\templates\default.html:47 .\templates\pages\post_search.html:12
+#: .\templates\default.html:47 .\templates\pages\post_search.html:13
 #: .\templates\protect\index.html:14
 msgid "Search"
 msgstr "Поиск"
@@ -98,6 +98,10 @@ msgstr "Вы действительно хотите выйти?"
 msgid "Confirm"
 msgstr "Подтвердить"
 
+#: .\templates\managing_posts\post_create.html:10
+msgid "Adding a new post"
+msgstr "Добавление нового объявления"
+
 #: .\templates\managing_posts\post_delete.html:5
 msgid "Delete a news item"
 msgstr "Удалить пост"
@@ -111,23 +115,46 @@ msgstr "Удаление"
 msgid "Edit the news"
 msgstr "Редактировать пост"
 
+#: .\templates\managing_posts\reply_create.html:11
+msgid "Adding a new reply"
+msgstr "Добавление отклика"
+
 #: .\templates\managing_posts\reply_delete.html:5
 msgid "Delete reply"
 msgstr "Удалить отклик"
 
-#: .\templates\pages\post_detail.html:38 .\templates\pages\reply_detail.html:35
+#: .\templates\managing_posts\reply_delete.html:10
+#: .\templates\pages\post_detail.html:44
 msgid "Delete"
 msgstr "Удалить"
 
-#: .\templates\pages\post_detail.html:54
+#: .\templates\pages\post_detail.html:10
+msgid "Post"
+msgstr "Объявление"
+
+#: .\templates\pages\post_detail.html:12 .\templates\pages\post_detail.html:91
+msgid "Author"
+msgstr "Автор"
+
+#: .\templates\pages\post_detail.html:60
 msgid "Edit"
 msgstr "Редактировать"
 
-#: .\templates\pages\post_detail.html:70
+#: .\templates\pages\post_detail.html:79
 msgid "Reply"
 msgstr "Отклик"
 
-#: .\templates\pages\posts_list.html:10
+#: .\templates\pages\post_detail.html:85
+#, fuzzy
+#| msgid "All posts"
+msgid "All replies"
+msgstr "Все посты"
+
+#: .\templates\pages\posts_list.html:8
+msgid "Become an author"
+msgstr "Стать автором"
+
+#: .\templates\pages\posts_list.html:12
 msgid "All posts"
 msgstr "Все посты"
 
@@ -142,6 +169,18 @@ msgstr "Автор отклика"
 #: .\templates\pages\reply_detail.html:16
 msgid "Текст"
 msgstr "Текст"
+
+#: .\templates\pages\reply_detail.html:36
+msgid "Reject"
+msgstr "Отклонить"
+
+#: .\templates\pages\reply_detail.html:55
+msgid "Accept"
+msgstr "Принять"
+
+#: .\templates\pages\reply_detail.html:61
+msgid "Reply was accepted"
+msgstr "Отклик был принят"
 
 #: .\templates\protect\index.html:7
 msgid "The authorized user's page"
@@ -170,3 +209,6 @@ msgstr "Регистрация"
 #: .\templates\sign\logout.html:5
 msgid "You are logged out of the system"
 msgstr "Вы вышли из системы"
+
+#~ msgid "Type of publication"
+#~ msgstr "Тип публикации"

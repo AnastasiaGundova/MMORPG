@@ -5,17 +5,16 @@
 Create Post
 {% endblock title %}
 
-
 {% block content %}
     <div style="text-align: center;">
-        <h1>Добавление нового объявления</h1>
+        <h1>{% trans "Adding a new post" %}</h1>
         <hr>
         <form action="" method="POST">
             {% csrf_token %}
             {{ form.media }}
             {{ form.as_p }}
             <div style="text-align: center;">
-                <input type="submit" class="btn btn-success" value="Добавить объявление">
+                <input type="submit" class="btn btn-primary" value='{% trans "Submit" %}'>
             </div>
         </form>
     </div>

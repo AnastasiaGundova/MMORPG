@@ -36,21 +36,6 @@
             {% trans "Reject" %}
         </a>
     </button>
-    <button style="background-color: #007bff; /* Blue */
-                    border: none;
-                    color: white;
-                    padding: 10px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 8px; /* Softened edges */">
-        <a href="{% url 'reply_edit' reply_detail.id %}" style="color: white; text-decoration: none;">
-            {% trans "Edit" %}
-        </a>
-    </button>
 </div>
 
 {% if not reply.accept and request.user.author != response.author%}

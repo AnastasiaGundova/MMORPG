@@ -3,15 +3,20 @@
 {% load custom_filters %}
 
 {% block content %}
+<p>&nbsp;</p>
+
 {% if post %}
 <table width="100%" style="margin-top: 50px">
+    <h4 style="text-align: left;">{% trans "Post" %}</h4>
     <tr>
+        <td>{% trans "Author" %}</td>
         <td>{% trans "Heading" %}</td>
         <td>{% trans "Date of publication" %}</td>
         <td>{% trans "Content" %}</td>
         <td>{% trans "Category" %}</td>
     </tr>
     <tr>
+        <td>{{post.author}}</td>
         <td>{{post.title}}</td>
         <td>{{post.created_at|date:' d M Y '}}</td>
         <td>{{post.text|safe}}</td>
@@ -77,17 +82,26 @@
 </div>
 
 <p>&nbsp;</p>
-<h4 style="text-align: center;">{% trans "All replies" %}</h4>
-    {% if reply.is_accepted %}
+<h4 style="text-align: left;">{% trans "All replies" %}</h4>
+    {% if post.reply_set.all %}
+    {% for reply in post.reply_set.all %}
+        {% if reply.is_accepted %}
         <table width="100%" style="margin-top: 50px">
-          <tbody>
             <tr>
-              <th>{% trans "Text" %}</th>
-              <td>{{ reply.text }}</td>
+                <td>{% trans "Author" %}</td>
+                <td>{% trans "Date of publication" %}</td>
+                <td>{% trans "Content" %}</td>
             </tr>
-          </tbody>
+            <tr>
+                <td>{{reply.user}}</td>
+                <td>{{reply.created_at|date:' d M Y '}}</td>
+                <td>{{reply.text|safe}}</td>
+            </tr>
         </table>
+        {% endif %}
+    {% endfor %}
     {% endif %}
+
 {% else %}
 <h3> {% trans "No publications found" %}</h3>
 {% endif %}
