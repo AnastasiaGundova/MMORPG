@@ -41,9 +41,9 @@ def notification_about_new_post(sender, instance, **kwargs):
         send_notifications(instance.preview(), instance.pk, instance.title, subscribers_emails)
 
 
-@receiver(m2m_changed, sender=Reply)
-def reply_accepted_notification(sender, instance, **kwargs):
-    if instance.is_accepted:
+@receiver(post_save, sender=Reply)
+def reply_accepted_notification(sender, instance, created, **kwargs):
+    if not created and instance.is_accepted:
         html_content = render_to_string(
             'reply_accepted_email.html',
             {
@@ -54,7 +54,7 @@ def reply_accepted_notification(sender, instance, **kwargs):
         msg = EmailMultiAlternatives(
             subject=f'Отклик принят - {instance.text}',
             from_email=settings.DEFAULT_FROM_EMAIL,
-            to=[instance.post.author.user.email],
+            to=[instance.user.email],
         )
         msg.attach_alternative(html_content, "text/html")
         msg.send()

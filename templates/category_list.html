@@ -24,7 +24,7 @@
         <tr>
             <td>{{post.title}}</td>
             <td>{{post.created_at|date:' d M Y '}}</td>
-            <td>{{ post.text|truncatewords:20 }}</td>
+            <td>{{ post.text|truncatewords:20|safe }}</td>
             <td>{% for category in post.category.all %}
                     <a href="{% url 'category_list' category.id %}">{{ category }}</a>
                 {% endfor %}
