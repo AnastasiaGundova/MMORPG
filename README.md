@@ -9,8 +9,6 @@ Welcome to the MMORPG project! This is a web application where users can create 
 - [Usage](#usage)
 - [User Guide](#user-guide)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -72,26 +70,26 @@ Welcome to the MMORPG project! This is a web application where users can create 
    ```python manage.py runserver```
 5. Access the application at http://127.0.0.1:8000/.
    
-- **Usage**:
+## Usage
   - Navigate to the homepage to explore all character posts.
   - Click "Become an Author" to create a new post.
   - Use the search feature to find specific posts.
   - Interact with posts by leaving replies and comments.
 - **User Guide**:
-  - Creating an Account:
-    Click on the registration option and fill in the required details.
-    Verify your email to activate your account.
-  - Creating a Post:
+  1. Creating an Account:
+    - Click on the registration option and fill in the required details.
+    - Verify your email to activate your account.
+  2. Creating a Post:
     - After logging in, click on "Create New Post."
     - Fill in the title, text, upload an image, and select a category.
     - Submit your post to have it published.
-  - Viewing Posts:
+  3. Viewing Posts:
     - Browse the homepage to view all posts.
     - Click on a post to read its full content and view comments.
-  - Managing Your Account:
+  4. Managing Your Account:
     - Access the User panel to view and manage your posts.
     - Log out when finished.
-- **Technologies Used**:
+## Technologies Used
 - Python
 - Django
 - HTML
