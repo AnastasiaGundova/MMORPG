@@ -3,61 +3,64 @@
 {% load custom_filters %}
 
 {% block content %}
-<p4>&nbsp;</p4>
-{% if is_not_author %}
-    <p class="text-center"><a href="{% url 'create_author'%}" class="btn btn-secondary btn-sm">{% trans "Become an author" %}</a></p>
-{% endif %}
-    {% if posts %}
-    <p>&nbsp;</p>
-    <h1 style="text-align: center;">{% trans "All posts" %}</h1>
-    <hr />
-    <table width="100%" style="margin-top: 50px">
-
-        <tr>
-            <td><u>{% trans "Heading" %}</u></td>
-            <td><u>{% trans "Date of publication" %}</u></td>
-            <td><u>{% trans "Content" %}</u></td>
-            <td><u>{% trans "Category" %}</u></td>
-
-        </tr>
-        {% for post in posts %}
-        <tr>
-            <td><a href="{% url 'post_detail' post.id %}">{{post.title}}</a></td>
-            <td>{{post.created_at|date:' d M Y '}}</td>
-            <td>{{ post.text|truncatewords:20|safe}}</td>
-            <td>{% for category in post.category.all %}
-                    <a href="{% url 'category_list' category.id %}">{{ category }}</a>
-                {% endfor %}
-            </td>
-        </tr>
-        {% endfor %}
-
-    </table>
-    {% else %}
-    <h3> {% trans "No publications found" %} </h3>
+<div class="container mt-5">
+    {% if is_not_author %}
+        <div class="text-center mb-4">
+            <a href="{% url 'create_author' %}" class="btn btn-secondary">{% trans "Become an author" %}</a>
+        </div>
     {% endif %}
 
-    <p>&nbsp;</p>
-        {# Добавляем пагинацию на страницу #}
+    {% if posts %}
+        <h1 class="text-center mb-4">{% trans "All posts" %}</h1>
+        <hr />
 
-        {# Информация о предыдущих страницах #}
-        <div>{% if page_obj.has_previous %}
-            <a href="?{% url_replace page=1 %}">1</a>
-            {% if page_obj.previous_page_number != 1 %}
-                ...
-                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'post_detail' post.id %}" class="text-dark text-decoration-none">{{ post.title }}</a>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ post.created_at|date:'d M Y' }}</h6>
+                            <p class="card-text">{{ post.text|truncatewords:20|safe }}</p>
+                            <p class="card-text">
+                                {% for category in post.category.all %}
+                                    <a href="{% url 'category_list' category.id %}" class="badge bg-primary text-light">#{{ category }}</a>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary" href="?{% url_replace page=1 %}">1</a>
+                {% if page_obj.previous_page_number != 1 %}
+                    <span class="btn btn-outline-primary disabled">...</span>
+                    <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
             {% endif %}
-        {% endif %}
 
-        {# Информация о текущей странице #}
-        {{ page_obj.number }}
+            <span class="btn btn-light">{{ page_obj.number }}</span>
 
-        {# Информация о следующих страницах #}
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
-            {% if paginator.num_pages != page_obj.next_page_number %}
-                ...
-                <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                {% if paginator.num_pages != page_obj.next_page_number %}
+                    <span class="btn btn-outline-primary disabled">...</span>
+                    <a class="btn btn-outline-primary" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                {% endif %}
             {% endif %}
-        {% endif %}</div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h3>{% trans "No publications found" %}</h3>
+        </div>
+    {% endif %}
+</div>
 {% endblock content %}

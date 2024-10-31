@@ -1,0 +1,30 @@
+/* Стили для контейнера входа */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Цвет фона */
+}
+
+/* Стили для окна входа */
+.login-box {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ced4da; /* Цвет рамки */
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для кнопок входа */
+.btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.language-form button {
+    padding: 6px 12px; /* Уменьшение отступов внутри кнопки */
+    font-size: 1rem; /* Уменьшение размера шрифта */
+    border-radius: 4px; /* Уменьшение радиуса закругления углов */
+}

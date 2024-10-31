@@ -3,106 +3,48 @@
 {% load custom_filters %}
 
 {% block content %}
-<p>&nbsp;</p>
-
-{% if post %}
-<table width="100%" style="margin-top: 50px">
-    <h4 style="text-align: left;">{% trans "Post" %}</h4>
-    <tr>
-        <td>{% trans "Author" %}</td>
-        <td>{% trans "Heading" %}</td>
-        <td>{% trans "Date of publication" %}</td>
-        <td>{% trans "Content" %}</td>
-        <td>{% trans "Category" %}</td>
-    </tr>
-    <tr>
-        <td>{{post.author}}</td>
-        <td>{{post.title}}</td>
-        <td>{{post.created_at|date:' d M Y '}}</td>
-        <td>{{post.text|safe}}</td>
-        {% for cat in post.category.all %}
-        <td>{{cat.name}}</td>
-        {% endfor %}
-    </tr>
-</table>
-<p>&nbsp;</p>
-
-{% if request.user.author == post.author %}
-    <div style="text-align: left;">
-        <button style="background-color: #007bff; /* Blue */
-                        border: none;
-                        color: white;
-                        padding: 10px 20px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-                        margin: 4px 2px;
-                        cursor: pointer;
-                        border-radius: 8px; /* Softened edges */">
-            <a href="{% url 'post_delete' post.id %}" style="color: white; text-decoration: none;">
-                {% trans "Delete" %}
-            </a>
-        </button>
-
-        <button style="background-color: #007bff; /* Blue */
-                        border: none;
-                        color: white;
-                        padding: 10px 20px;
-                        text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 16px;
-                        margin: 4px 2px;
-                        cursor: pointer;
-                        border-radius: 8px; /* Softened edges */">
-            <a href="{% url 'post_edit' post.id %}" style="color: white; text-decoration: none;">
-                {% trans "Edit" %}
-            </a>
-        </button>
+<div class="post-details">
+    <h4>{% trans "Post" %}</h4>
+    <div class="post-info">
+        <p><strong>{% trans "Author" %}:</strong> {{ post.author }}</p>
+        <p><strong>{% trans "Heading" %}:</strong> {{ post.title }}</p>
+        <p><strong>{% trans "Date of publication" %}:</strong> {{ post.created_at|date:'d M Y' }}</p>
+        <p><strong>{% trans "Content" %}:</strong> {{ post.text|safe }}</p>
+        <p><strong>{% trans "Category" %}:</strong>
+            {% for cat in post.category.all %}
+                {{ cat.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
     </div>
-{% endif %}
-<p>&nbsp;</p>
-<div style="text-align: left;">
-    <button style="background-color: #007bff; /* Blue */
-                    border: none;
-                    color: white;
-                    padding: 10px 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 8px; /* Softened edges */">
-        <a href="{% url 'reply_create' post.id %}" style="color: white; text-decoration: none;">
-            {% trans "Reply" %}
-        </a>
-    </button>
-</div>
 
-<p>&nbsp;</p>
-<h4 style="text-align: left;">{% trans "All replies" %}</h4>
-    {% if post.reply_set.all %}
-    {% for reply in post.reply_set.all %}
-        {% if reply.is_accepted %}
-        <table width="100%" style="margin-top: 50px">
-            <tr>
-                <td>{% trans "Author" %}</td>
-                <td>{% trans "Date of publication" %}</td>
-                <td>{% trans "Content" %}</td>
-            </tr>
-            <tr>
-                <td>{{reply.user}}</td>
-                <td>{{reply.created_at|date:' d M Y '}}</td>
-                <td>{{reply.text|safe}}</td>
-            </tr>
-        </table>
-        {% endif %}
-    {% endfor %}
+    {% if request.user.author == post.author %}
+    <div class="post-actions">
+        <a href="{% url 'post_delete' post.id %}" class="button delete">{% trans "Delete" %}</a>
+        <a href="{% url 'post_edit' post.id %}" class="button edit">{% trans "Edit" %}</a>
+    </div>
     {% endif %}
 
-{% else %}
-<h3> {% trans "No publications found" %}</h3>
-{% endif %}
-{% endblock content%}
+    <div class="reply-button">
+        <a href="{% url 'reply_create' post.id %}" class="button reply">{% trans "Reply" %}</a>
+    </div>
+
+    <hr class="divider">
+
+    <h4>{% trans "All replies" %}</h4>
+    {% if post.reply_set.all %}
+        <div class="replies">
+            {% for reply in post.reply_set.all %}
+                {% if reply.is_accepted %}
+                <div class="reply">
+                    <p><strong>{% trans "Author" %}:</strong> {{ reply.user }}</p>
+                    <p><strong>{% trans "Date of publication" %}:</strong> {{ reply.created_at|date:'d M Y' }}</p>
+                    <p><strong>{% trans "Content" %}:</strong> {{ reply.text|safe }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>{% trans "No replies found" %}</p>
+    {% endif %}
+</div>
+{% endblock content %}
