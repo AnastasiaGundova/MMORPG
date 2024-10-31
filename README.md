@@ -27,11 +27,11 @@ Welcome to the MMORPG project! This is a web application where users can create 
   - Spell Masters
   
 - **Post Creation**: When creating a post, users can add:
+   - Author name
   - Title
   - Text content
   - Image
-  - Author name
-
+    
 - **Homepage Features**:
   - A "Become an Author" button to create posts under your name.
   - A display of all posts categorized by selected tags.
